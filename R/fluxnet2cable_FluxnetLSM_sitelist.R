@@ -3,7 +3,7 @@
 # RG 20 Mar 2019
 
 rm(list=ls())
-source('R/labs.R')
+source('cable_data/R/labs.R')
 library(FluxnetLSM)
 library(ncdf4)
 library(RNetCDF)
@@ -14,7 +14,7 @@ siteinfo <- list()
 blist <- data.table()
 sitelist_fun <- function(ncfile){
     tryCatch({
-    ncfile <- files[1]
+    # ncfile <- files[1]
     ncin <- nc_open(ncfile, write = T)
     sitecode  <-  gsub("*(-)*_.*", "\\1", basename(ncin$filename))
     latitude  <- round(ncvar_get(ncin, "latitude"), digits = 4)
@@ -23,7 +23,8 @@ sitelist_fun <- function(ncfile){
     canopy_height <- NA
     tower_height  <- NA
     
-    vegetation <- ncvar_get(ncin, "IGBP_veg_long")
+    veg        <- ncvar_get(ncin, "IGBP_veg_long")
+    vegetation <- str_trim(veg, "right")
     startyear  <- gsub(".*(\\d{4})-.+", "\\1", ncin$filename)
     endyear    <- gsub(".*-(\\d{4})_.*", "\\1", ncin$filename)
     nc_close(ncin)
@@ -48,7 +49,7 @@ d_sitelist <- rbindlist(site_list)
 rownames(d_sitelist) <- NULL
 d_sitelist
 listfile <- 'E:/fluxsites/GF_HH_HR_MET/FLUXNET_sitelist.txt'
-write.table(d_sitelist, listfile, append = FALSE, sep = " ", 
+write.table(d_sitelist, listfile, append = FALSE,  
             row.names = FALSE, col.names = TRUE, quote=FALSE)
 
 # ******** end ********
