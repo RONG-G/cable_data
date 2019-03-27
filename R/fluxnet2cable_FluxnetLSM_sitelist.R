@@ -31,10 +31,10 @@ sitelist_fun <- function(ncfile){
 
     # info list for cable
     u <- data.table(sitecode  = sitecode,
-                    latitude  = latitude,
-                    longitude = longitude,
                     startyear = startyear,
                     endyear   = endyear,
+                    latitude  = latitude,
+                    longitude = longitude,
                     canopy_height = canopy_height,
                     tower_height  = tower_height,
                     vegetation    = vegetation)
