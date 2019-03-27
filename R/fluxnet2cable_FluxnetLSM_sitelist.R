@@ -49,7 +49,9 @@ d_sitelist <- rbindlist(site_list)
 rownames(d_sitelist) <- NULL
 d_sitelist
 listfile <- 'E:/fluxsites/GF_HH_HR_MET/FLUXNET_sitelist.txt'
-write.table(d_sitelist, listfile, append = FALSE,  
+
+# note the write format, 'sep' set to '\t' 
+write.table(d_sitelist, listfile, append = FALSE, sep = "\t", 
             row.names = FALSE, col.names = TRUE, quote=FALSE)
 
 # ******** end ********
